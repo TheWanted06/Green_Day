@@ -1,4 +1,4 @@
-namespace Green_Day.ViewModels
+namespace Green_Day.Models
 {
     public class ErrorViewModel
     {

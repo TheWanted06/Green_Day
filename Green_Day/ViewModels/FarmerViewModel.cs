@@ -4,7 +4,7 @@ namespace Green_Day.ViewModels
 {
     public class FarmerViewModel
     {
-        public Farmers Farmer { get; set; }
+        public Users Farmer { get; set; }
         public List<Product> Products { get; set; }
     }
 }

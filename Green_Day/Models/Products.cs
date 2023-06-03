@@ -8,6 +8,6 @@
         public string Description { get; set; }
         public int Quantity { get; set; }
         public DateTime Expire_Date { get; set; }
-        public int FarmerId { get; set; }
+        public int userId { get; set; }
     }
 }

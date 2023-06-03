@@ -1,4 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Green_Day.Data;
+using Microsoft.AspNetCore.Identity;
+using Green_Day.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Green_DayContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Green_DayContext") ?? throw new InvalidOperationException("Connection string 'Green_DayContext' not found.")));
+
+builder.Services.AddDefaultIdentity<Users>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<Green_DayContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -17,6 +28,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
