@@ -3,17 +3,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Green_Day.Data;
 using Microsoft.AspNetCore.Identity;
 using Green_Day.Models;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddDbContext<Green_DayContext>(options =>
-    options.UseSqlServer(configuration.GetConnectionString("Green_DayContext") ?? throw new InvalidOperationException("Connection string 'Green_DayContext' not found.")));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Green_DayContext>().AddDefaultTokenProviders();
+    options.UseSqlServer(configuration.GetConnectionString("Green_DayContext") ?? 
+    throw new InvalidOperationException("Connection string 'Green_DayContext' not found.")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<Green_DayContext>()
+    .AddDefaultTokenProviders();
 
 
-//builder.Services.AddDefaultIdentity<Users>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<Green_DayContext>();
+//builder.Services.AddDefaultIdentity<IdentityUsers>(options => options.SignIn.RequireConfirmedAccount = true)
+    //.AddEntityFrameworkStores<Green_DayContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -38,7 +43,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-//app.MapRazorPages();
+app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",
