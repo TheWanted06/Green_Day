@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Green_Day.Data
 {
-    public class Green_DayContext : IdentityDbContext
+    public class Green_DayContext : DbContext
     {
         public Green_DayContext (DbContextOptions<Green_DayContext> options)
             : base(options)

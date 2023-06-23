@@ -5,14 +5,19 @@ using Microsoft.AspNetCore.Identity;
 using Green_Day.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<Green_DayContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Green_DayContext") ?? throw new InvalidOperationException("Connection string 'Green_DayContext' not found.")));
+ConfigurationManager configuration = builder.Configuration;
 
-builder.Services.AddDefaultIdentity<Users>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<Green_DayContext>();
+builder.Services.AddDbContext<Green_DayContext>(options =>
+    options.UseSqlServer(configuration.GetConnectionString("Green_DayContext") ?? throw new InvalidOperationException("Connection string 'Green_DayContext' not found.")));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Green_DayContext>().AddDefaultTokenProviders();
+
+
+//builder.Services.AddDefaultIdentity<Users>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<Green_DayContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -32,6 +37,8 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+//app.MapRazorPages();
 
 app.MapControllerRoute(
     name: "default",

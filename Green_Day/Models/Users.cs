@@ -11,7 +11,7 @@
 
         public enum UserType
         {
-            Regular,
+            User,
             Farmer,
             Employee
         }
